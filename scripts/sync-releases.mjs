@@ -30,7 +30,14 @@ async function readWebsite() {
   const manifest = await (await request(website + '/android-latest.json')).json();
   if (manifest.package !== packageName) throw new Error('Unexpected APK package');
   const latest = manifest.channels.release;
-  return release(latest.versionName, latest.versionCode);
+  const version = release(latest.versionName, latest.versionCode);
+  try {
+    const { inspectApk } = await import('./inspect-apk.mjs');
+    return { ...version, apk: await inspectApk(latest.url, latest, request) };
+  } catch (error) {
+    console.error('APK verification: ' + error.message);
+    return { ...version, apk: null };
+  }
 }
 
 let status = {};
@@ -40,13 +47,27 @@ try {
   if (error.code !== 'ENOENT') throw error;
 }
 
-const sources = [['oneStore', readStore], ['website', readWebsite]];
+async function readIssues() {
+  const issues = [];
+  for (let page = 1; page <= 10; page++) {
+    const url = 'https://api.github.com/repos/hwisoek/haruit-release-tracker/issues?state=all&per_page=100&page=' + page;
+    const batch = await (await request(url)).json();
+    if (!Array.isArray(batch)) throw new Error('Invalid GitHub issues response');
+    issues.push(...batch.filter(item => !item.pull_request).map(item => ({
+      number: item.number, title: item.title, state: item.state,
+      needsReproduction: item.labels.some(label => label.name === 'needs-reproduction')
+    })));
+    if (batch.length < 100) return { issues };
+  }
+  throw new Error('Issue pagination limit reached');
+}
+const sources = [['oneStore', readStore], ['website', readWebsite], ['github', readIssues]];
 const results = await Promise.allSettled(sources.map(([, read]) => read()));
 for (const [index, result] of results.entries()) {
   const [source] = sources[index];
   if (result.status === 'fulfilled') {
     status[source] = { ...result.value, checkedAt: new Date().toISOString() };
-    console.log(`${source}: ${result.value.version} (${result.value.code})`);
+    console.log(source + ": verified");
   } else {
     console.error(`${source}: ${result.reason.message}; retaining last verified value`);
   }

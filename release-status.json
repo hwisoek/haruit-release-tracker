@@ -2,11 +2,35 @@
   "oneStore": {
     "version": "0.6.6",
     "code": 45,
-    "checkedAt": "2026-11-08T14:35:31.899Z"
+    "checkedAt": "2026-11-08T14:38:12.453Z"
   },
   "website": {
     "version": "0.6.13",
     "code": 52,
-    "checkedAt": "2026-11-08T14:35:31.905Z"
+    "apk": {
+      "sha256": "a5e31b3cd45e64b041df1313633a6a946383baf867b2559fe4df6ae488e74e22",
+      "certificate": "78c9b628180f93b866ade03afa16467a029f22ed1d2fca96faa21a7e493680b5",
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.SCHEDULE_EXACT_ALARM",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.VIBRATE",
+        "android.permission.WAKE_LOCK",
+        "android.permission.USE_FULL_SCREEN_INTENT",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "com.google.android.c2dm.permission.RECEIVE",
+        "kr.weekflow.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ]
+    },
+    "checkedAt": "2026-11-08T14:38:12.454Z"
+  },
+  "github": {
+    "issues": [],
+    "checkedAt": "2026-11-08T14:38:12.454Z"
   }
 }

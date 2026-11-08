@@ -2,13 +2,15 @@ name: Sync public release versions
 
 on:
   workflow_dispatch:
+  issues:
+    types: [opened, edited, closed, reopened, labeled, unlabeled, deleted]
   schedule:
     - cron: '23 0,12 * * *'
   push:
     branches: [main]
     paths:
       - '.github/workflows/sync-releases.yml'
-      - 'scripts/sync-releases.mjs'
+      - 'scripts/*.mjs'
 
 permissions:
   contents: write

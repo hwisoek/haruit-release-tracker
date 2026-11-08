@@ -109,7 +109,12 @@ function openTemplate(k){document.getElementById('modalTitle').textContent=k==='
  try {
    const response = await fetch(url, {signal: AbortSignal.timeout(7000)});
    if (!response.ok) throw new Error('Release status unavailable');
-   snapshot = await response.json();
+   const fresh = await response.json();
+   for (const source of ['oneStore', 'website', 'github']) {
+     if (Date.parse(fresh[source]?.checkedAt) >= Date.parse(snapshot[source]?.checkedAt)) {
+       snapshot[source] = fresh[source];
+     }
+   }
  } catch {
    // The bundled snapshot stays available when GitHub Raw is unreachable.
  }

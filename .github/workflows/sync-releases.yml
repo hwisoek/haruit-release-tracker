@@ -1,0 +1,35 @@
+name: Sync public release versions
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 0,12 * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/sync-releases.yml'
+      - 'scripts/sync-releases.mjs'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-public-release-versions
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read public release sources
+        run: node scripts/sync-releases.mjs
+      - name: Save verified versions
+        run: |
+          git add release-status.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Refresh public HARUIT release versions'
+          git push

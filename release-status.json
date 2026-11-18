@@ -2,16 +2,16 @@
   "oneStore": {
     "version": "0.6.19",
     "code": 68,
-    "checkedAt": "2026-11-18T07:42:33.308Z"
+    "checkedAt": "2026-11-18T20:41:54.968Z"
   },
   "website": {
-    "version": "0.6.19",
-    "code": 70,
+    "version": "0.6.21",
+    "code": 74,
     "apk": null,
-    "checkedAt": "2026-11-18T07:42:33.310Z"
+    "checkedAt": "2026-11-18T20:41:54.970Z"
   },
   "github": {
     "issues": [],
-    "checkedAt": "2026-11-18T07:42:33.310Z"
+    "checkedAt": "2026-11-18T20:41:54.970Z"
   }
 }

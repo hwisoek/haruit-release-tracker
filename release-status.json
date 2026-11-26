@@ -2,7 +2,7 @@
   "oneStore": {
     "version": "0.6.22",
     "code": 76,
-    "checkedAt": "2026-11-26T08:37:01.166Z"
+    "checkedAt": "2026-11-26T21:43:50.642Z"
   },
   "website": {
     "version": "0.6.24",
@@ -27,10 +27,10 @@
         "kr.weekflow.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
       ]
     },
-    "checkedAt": "2026-11-26T08:37:01.251Z"
+    "checkedAt": "2026-11-26T21:43:50.643Z"
   },
   "github": {
     "issues": [],
-    "checkedAt": "2026-11-26T08:37:01.251Z"
+    "checkedAt": "2026-11-26T21:43:50.643Z"
   }
 }
